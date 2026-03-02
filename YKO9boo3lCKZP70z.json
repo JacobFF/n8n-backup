@@ -1,0 +1,583 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Abgeschlossene Projekte": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Projekte": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kleine ToDos": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Geplante Projekte": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Sort1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Abgeschlossene Projekte",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Projekte",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Geplante Projekte",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Kleine ToDos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-02-24T18:07:46.059Z",
+  "id": "YKO9boo3lCKZP70z",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Monday",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9969035e-d802-453e-99c3-200be7ad0c82",
+              "leftValue": "={{ $json.column_values.find(item => item.id === 'project_status').value?.parseJson().changed_at }}",
+              "rightValue": "={{ $now.minus({ days: 7 }).toUTC().toISO() }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        480,
+        48
+      ],
+      "id": "131519e2-d8d0-43a4-9185-62d5ff98f350",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "29b2c450-191e-4bb9-ae53-2eba65b1ca68",
+              "name": "column_values[1].text",
+              "value": "={{ $json.column_values.find(item => item?.id === 'project_owner').text }}",
+              "type": "string"
+            },
+            {
+              "id": "bc40d794-4dac-452e-819a-dddeff0d5ba0",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        688,
+        48
+      ],
+      "id": "d1e62f9a-f480-418e-859c-b54df34e7a5d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "chatId": "-5239526714",
+        "text": "={{ $json.telegram_text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1504,
+        64
+      ],
+      "id": "44f26524-65b1-4b06-bf62-fb9ddc64afbc",
+      "name": "Send a text message",
+      "webhookId": "1c0ceebb-371a-4971-b80d-60a477c5be07",
+      "credentials": {
+        "telegramApi": {
+          "id": "6Gfu0PEctoSBBHT0",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "column_values[1].text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        880,
+        48
+      ],
+      "id": "e49e7da4-4c88-4de0-b374-4d40409acd1d",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst completedTasks = items.map(item => {\n  return {\n    name: item.json.name,\n    // Sicherstellen, dass der User-Text existiert, sonst \"Unbekannt\"\n    user: item.json.column_values && item.json.column_values[1] ? item.json.column_values[1].text : \"Team\"\n  };\n});\n\n// Gruppierung nach User\nconst grouped = completedTasks.reduce((groups, task) => {\n  const user = task.user;\n  if (!groups[user]) groups[user] = [];\n  groups[user].push(task.name);\n  return groups;\n}, {});\n\nlet message = \"✅ *Neuro•Pulse – Erfolgreich erledigt*\\n\";\nmessage += \"––––––––––––––––––––––––––\\n\\n\";\n\nfor (const user in grouped) {\n  // E-Mail-Bereinigung (z.B. für Paul)\n  const displayName = user.replace(/@neuro-pulse\\.de/g, \"\");\n  \n  message += `👤 *${displayName}*\\n`;\n  \n  for (const taskName of grouped[user]) {\n    // Icons basierend auf Task-Inhalt (optionales Extra)\n    let icon = \"✔️\";\n\n    message += `${icon} \\`${taskName}\\` \\n`;\n  }\n  message += \"\\n\";\n}\n\nmessage += \"––––––––––––––––––––––––––\\n\";\nmessage += \"💪 *Gute Arbeit, Team!*\";\n\nreturn [{\n  json: {\n    telegram_text: message,\n    parse_mode: \"Markdown\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        48
+      ],
+      "id": "d338f325-ea56-4faa-8cc8-d1da1b9cc071",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "resource": "boardItem",
+        "operation": "getAll",
+        "boardId": "5089359251",
+        "groupId": "new_group43041",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.mondayCom",
+      "typeVersion": 1,
+      "position": [
+        272,
+        48
+      ],
+      "id": "b3d9c8a2-a816-4230-b659-19ecac88b01d",
+      "name": "Abgeschlossene Projekte",
+      "credentials": {
+        "mondayComApi": {
+          "id": "chUZyC9qGYW9mTl1",
+          "name": "Monday.com account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "boardItem",
+        "operation": "getAll",
+        "boardId": "5089359251",
+        "groupId": "new_group29179",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.mondayCom",
+      "typeVersion": 1,
+      "position": [
+        272,
+        224
+      ],
+      "id": "10bc0e49-5223-48d6-b60f-02a3aad457c8",
+      "name": "Projekte",
+      "credentials": {
+        "mondayComApi": {
+          "id": "chUZyC9qGYW9mTl1",
+          "name": "Monday.com account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "boardItem",
+        "operation": "getAll",
+        "boardId": "5089359251",
+        "groupId": "group_mkz07vqh",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.mondayCom",
+      "typeVersion": 1,
+      "position": [
+        272,
+        528
+      ],
+      "id": "74880d83-ccd1-483d-8edd-21d3c6fb04f0",
+      "name": "Kleine ToDos",
+      "credentials": {
+        "mondayComApi": {
+          "id": "chUZyC9qGYW9mTl1",
+          "name": "Monday.com account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        480,
+        368
+      ],
+      "id": "7a858bc4-64ee-4eae-9193-ae842b11866b",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "resource": "boardItem",
+        "operation": "getAll",
+        "boardId": "5089359251",
+        "groupId": "group_mkzr2wxm",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.mondayCom",
+      "typeVersion": 1,
+      "position": [
+        272,
+        368
+      ],
+      "id": "ab73ffc6-67d9-4aea-990b-4b03a64ffba0",
+      "name": "Geplante Projekte",
+      "credentials": {
+        "mondayComApi": {
+          "id": "chUZyC9qGYW9mTl1",
+          "name": "Monday.com account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9969035e-d802-453e-99c3-200be7ad0c82",
+              "leftValue": "={{ $json.column_values.find(item => item.id === 'date')?.value?.parseJson().date }}",
+              "rightValue": "={{ $now.format('yyyy-MM-dd') }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "before"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        736,
+        384
+      ],
+      "id": "a7911aae-9e7d-405a-8ee6-d493ac2ab761",
+      "name": "Filter1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "29b2c450-191e-4bb9-ae53-2eba65b1ca68",
+              "name": "User",
+              "value": "={{ $json.column_values.find(item => item?.id === 'project_owner').text }}",
+              "type": "string"
+            },
+            {
+              "id": "bc40d794-4dac-452e-819a-dddeff0d5ba0",
+              "name": "task",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "893388ea-c53d-4d9d-a98f-557d818581c5",
+              "name": "Date",
+              "value": "={{ $json.column_values.find(item => item.id === 'date').text }}",
+              "type": "string"
+            },
+            {
+              "id": "e9129ff5-54d2-4a03-8def-bbca65e5ea1f",
+              "name": "Priority",
+              "value": "={{ $json.column_values.find(item => item.id === 'priority_1').text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        976,
+        384
+      ],
+      "id": "83dd6c6e-ccc8-419c-a798-11fc8b4ab3ab",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "Date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        384
+      ],
+      "id": "8f2de10f-8c15-432f-aa19-7e13e102e7d8",
+      "name": "Sort1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const tasks = $input.all().map(item => item.json);\n\n// 1. Gruppierung nach Personen (User)\nconst groupedByUser = tasks.reduce((groups, task) => {\n  // E-Mail-Bereinigung (z.B. bei Paul)\n  const user = task.User.replace(/@neuro-pulse\\.de/g, \"\");\n  if (!groups[user]) groups[user] = [];\n  groups[user].push(task);\n  return groups;\n}, {});\n\n// 2. Zusammenbau der Nachricht\nlet urgentCount = tasks.filter(t => \n  (t.Priority?.toLowerCase().includes(\"hoch\") || t.Priority?.toLowerCase().includes(\"kritisch\"))\n).length;\n\nlet message = `⚠️ *ÜBERFÄLLIGE AUFGABEN*\\n`;\nmessage += `Status: ${tasks.length} offen | 🚨 ${urgentCount} Dringend\\n`;\nmessage += `––––––––––––––––––––––––––\\n\\n`;\n\n// Sortierung der User alphabetisch für bessere Struktur\nconst sortedUsers = Object.keys(groupedByUser).sort();\n\nfor (const user of sortedUsers) {\n  message += `👤 *${user}*\\n`;\n\n  // Innerhalb der Person nach Datum sortieren\n  groupedByUser[user].sort((a, b) => new Date(a.Date) - new Date(b.Date));\n\n  for (const task of groupedByUser[user]) {\n    const dateFormatted = task.Date.split('-').reverse().join('.');\n    const priority = task.Priority ? task.Priority.toLowerCase() : \"\";\n    const taskText = task.task.toLowerCase();\n    \n    // Icon-Logik: Kreuze für Überfälliges\n    let icon = \"❌\"; \n    let label = \"\";\n\n    // Zusatz-Label bei hoher Priorität oder kritischen Themen\n    if (priority.includes(\"hoch\") || priority.includes(\"kritisch\")) {\n      label = \"*[DRINGEND]* \";\n    } \n\n    // Zeile: Icon + Datum + Task + Prio (falls vorhanden)\n    message += `${icon} \\`${dateFormatted}\\`: ${label}${task.task}`;\n    if (task.Priority && !label.includes(\"DRINGEND\")) {\n      message += ` (_${task.Priority}_)`;\n    }\n    message += `\\n`;\n  }\n  message += `\\n`; // Abstand zwischen den Personen\n}\n\nmessage += `––––––––––––––––––––––––––\\n`;\nmessage += `_Bitte priorisiert abarbeiten, um den Workflow bei Neuro•Pulse nicht zu gefährden._`;\n\nreturn [{\n  json: {\n    telegram_text: message,\n    parse_mode: \"Markdown\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        384
+      ],
+      "id": "b1bab8b9-1283-4878-9900-8cdb332d1a0e",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "chatId": "-5239526714",
+        "text": "={{ $json.telegram_text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1664,
+        368
+      ],
+      "id": "71ed6ef3-f407-49ca-a566-dabf1cd58f04",
+      "name": "Send a text message1",
+      "webhookId": "1c0ceebb-371a-4971-b80d-60a477c5be07",
+      "credentials": {
+        "telegramApi": {
+          "id": "6Gfu0PEctoSBBHT0",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtHour": 11
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        48
+      ],
+      "id": "42cee03b-f6db-47c0-bcea-5050ef76bbd2",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "JacobFF",
+    "name": "n8n-backup"
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-02-24T18:07:46.061Z",
+      "createdAt": "2026-02-24T18:07:46.061Z",
+      "role": "workflow:owner",
+      "workflowId": "YKO9boo3lCKZP70z",
+      "projectId": "9Gn5GxiYptcOz0GV"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-03-01T14:09:44.694Z",
+  "versionId": "19aca67a-c6bc-4ad9-9f1b-2a9ab338a3bf"
+}
